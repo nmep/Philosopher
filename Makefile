@@ -6,7 +6,7 @@
 #    By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/18 16:13:11 by lgarfi            #+#    #+#              #
-#    Updated: 2024/03/18 17:14:52 by lgarfi           ###   ########.fr        #
+#    Updated: 2024/03/18 21:31:22 by lgarfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,16 +19,16 @@ OBJ = $(SRC:.c=.o)
 
 
 OBJ_DIR = $(subst ./src, ./obj, $(shell find ./src/ -type d))
-OBJ_DIR_FILE = ./obj/
-SRC_DIR = ./src/
+OBJ_DIR_FILE = obj
+SRC_DIR = src
 HEADER = include/philo.h
 
 all: $(name)
 
-$(OBJ_DIR_FILE)%.o: $(SRC_DIR)%.c $(HEADER) | make_obj_dir
+$(OBJ_DIR_FILE)/%.o: $(SRC_DIR)/%.c $(HEADER) | make_obj_dir
 	$(cc) $(flags) -c $< -o $@ -I./include
 
-$(name): $(OBJ)
+$(name): $(OBJ) $(HEADER)
 	$(cc) $(flags) $(OBJ) -I./include -o $@
 
 make_obj_dir:
@@ -43,6 +43,6 @@ fclean: clean
 re: fclean all
 
 # test:
-# 	echo $(OBJ)
+# 	echo $(OBJ_DIR)
 
 .PHONY: all clean fclean re
