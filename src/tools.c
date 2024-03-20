@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 14:00:33 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/18 23:07:17 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/19 12:53:17 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ bool	ft_atoi(char *str, int	*res)
 			s *= -1;
 		i++;
 	}
-	*res = 0;
 	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
 		if ((*res > INT_MAX / 10 || (*res == INT_MAX / 10

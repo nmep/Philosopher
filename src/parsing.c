@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:59:40 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/18 22:40:58 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/19 23:20:52 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,24 @@ int	ft_parsing_data(t_philo_data *ph_d, char **av, int ac)
 	int	j;
 	int	*tab_data;
 
-	i = 1;
-	(void)ph_d;
-	while (i < ac)
+	i = 0;
+	while (++i < ac)
 	{
 		if (!ft_is_str_atoiable(av[i]))
 			return (0);
-		i++;
 	}
-	tab_data = malloc(sizeof(int) * 5);
+	tab_data = malloc(sizeof(int) * (ac - 1));
 	if (!tab_data)
 		return (printf("ERROR MALLOC\n"), ERROR_MALLOC);
-	i = 1;
+	i = 0;
 	j = 0;
-	while (i < ac)
+	while (++i < ac)
 	{
-		if (!ft_atoi(av[i++], &tab_data[j++]))
+		tab_data[j] = 0;
+		if (!ft_atoi(av[i], &tab_data[j]) || tab_data[j] == 0)
 			return (free(tab_data), 0);
+		j++;
 	}
-	ft_init_data(ph_d, tab_data);
+	ft_init_data(ph_d, tab_data, j);
 	return (1);
 }

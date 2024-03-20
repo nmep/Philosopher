@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:39:08 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/18 23:39:39 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/19 23:45:58 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 int	main(int ac, char **av)
 {
-	t_philo_data	ph_d;
-	pthread_t		*phil;
-	pthread_mutex_t	*fork;
+	t_philo	philo;
 
-	if (ac != 6)
+	if (ac != 6 && ac != 5)
 		return (printf(ERR_MSG), ERR_PARSING);
-	if (ft_parsing_data(&ph_d, av, ac) != 1)
+	if (ft_parsing_data(&philo.ph_data, av, ac) != 1)
 		return (printf(ERR_MSG_PARS), ERR_PARSING);
-	phil[ph_d.p_number];
-	fork[ph_d.p_number];
-	if (ft_init_thread(&phil, ph_d, fork) != 1)
-		return (2)
+	if (ft_init_thread(&philo) != 1)
+		return (2);
+	return (0);
 }
