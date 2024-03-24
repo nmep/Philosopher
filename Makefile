@@ -6,13 +6,13 @@
 #    By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/18 16:13:11 by lgarfi            #+#    #+#              #
-#    Updated: 2024/03/18 21:31:22 by lgarfi           ###   ########.fr        #
+#    Updated: 2024/03/24 07:31:10 by lgarfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 name = philo
 cc = cc
-flags = -Wall -Wextra -Werror -pthread -g3
+flags = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=thread
 
 SRC = $(subst ./src, ./obj, $(shell find ./src -name "*.c" -type f))
 OBJ = $(SRC:.c=.o)

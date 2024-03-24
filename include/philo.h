@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/20 10:17:31 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/24 17:44:13 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
-#include <unistd.h>
+# include <unistd.h>
+# include <sys/time.h>
 
 # define ERR_MSG "argument should be enter as follow\n"\
 				"ARG 1 [number_of_philosophers]\n"     \
@@ -37,6 +38,35 @@
 # define ERR_PARSING 2
 # define ERROR_MALLOC 3
 
+// numero de la fourchette et son etat (prise ou pas)
+typedef struct s_state_fork
+{
+	int	fork_number;
+	int	state;
+}	t_state_fork;
+
+// variable representant les donnes d'une fourchette pour chaque 
+// philospher
+typedef struct s_fork_pos
+{
+	t_state_fork	l_fork;
+	t_state_fork	r_fork;
+}	t_fork_pos;
+
+// tableau de mutex avec variable de taille x philo
+// contenant les donnees de chaque fourchette poser sur la table
+// sur philo x fourchette (mutex) x est a sa gauche, et son etat
+// 			   fourchette (mutex) x est a sa droite, et son etat
+typedef struct s_mutex
+{
+	pthread_mutex_t	fork_pos_incr;
+	t_fork_pos		*fork_pos;
+	pthread_mutex_t	*tab_fork;
+}	t_mutex;
+
+// input et ce qui en resulte (tableau de mutex repsentant 
+// les fourchettes) de chaque philosopher.
+// 2 eme structure principale
 typedef struct s_philo_data
 {
 	int	p_number;
@@ -44,15 +74,15 @@ typedef struct s_philo_data
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_time_p_eat;
-	int	p_position;
-	int	r_fork;
 }	t_philo_data;
 
 typedef struct s_pihlo
 {
 	pthread_t		*ph;
-	pthread_mutex_t	*fork;
 	t_philo_data	ph_data;
+	t_mutex			fork;
+	struct timeval	timestamp;
+	
 }	t_philo;
 
 // # ---------------------------------------------	#
@@ -63,8 +93,8 @@ typedef struct s_pihlo
 // #												#
 // # ---------------------------------------------	#
 
-int		ft_parsing_data(t_philo_data *ph_d, char **av, int ac);
-int		ft_init_data(t_philo_data *ph_d, int *tab_data, int len_tab);
+int		ft_parsing_data(t_philo *philo, char **av, int ac);
+int		ft_init_data(t_philo *philo, int *tab_data);
 int		ft_init_thread(t_philo *philo);
 void	*ft_routine(void *arg_philo);
 

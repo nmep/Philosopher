@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:59:40 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/19 23:20:52 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/24 17:18:56 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 // va check dans av si les arg sont bons a etre pris en compte
 // attention si il est possible que philo se lance avec moin de 5 arg il faudra 
+// check le cas d'erreur// va check dans av si les arg sont bons a etre pris en compte
+// attention si il est possible que philo se lance avec moin de 5 arg il faudra 
 // check le cas d'erreur
-int	ft_parsing_data(t_philo_data *ph_d, char **av, int ac)
+int	ft_parsing_data(t_philo *philo, char **av, int ac)
 {
 	int	i;
 	int	j;
@@ -39,6 +41,7 @@ int	ft_parsing_data(t_philo_data *ph_d, char **av, int ac)
 			return (free(tab_data), 0);
 		j++;
 	}
-	ft_init_data(ph_d, tab_data, j);
+	i = -1;
+	ft_init_data(philo, tab_data);
 	return (1);
 }
