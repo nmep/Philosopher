@@ -14,20 +14,15 @@
 
 void	*ft_routine(void *arg_philo)
 {
-	t_philo	*philo;
-	t_fork_pos *current_fork_pose;
-	philo = arg_philo; // prendre le parametre du
+	t_philo		*philo;
+	int			i;
 
-	ft_init_fork_data(philo, current_fork_pose);
-	if (!ft_check_fork(current_fork_pose))
+	philo = arg_philo; // prendre le parametre du
+	i = -1;
+	while (++i < philo->ph_data.number_of_time_p_eat)
 	{
-		ft_sleep(current_fork_pose->l_fork.fork_number, philo);
-		ft_think(current_fork_pose->l_fork.fork_number, philo);
+		if (!ft_philo(philo))
+			break ;
 	}
-	if (current_fork_pose->l_fork.fork_number < current_fork_pose->r_fork.fork_number)
-		ft_get_fork(philo->fork.tab_fork[current_fork_pose->l_fork.fork_number], philo->fork.tab_fork[current_fork_pose->r_fork.fork_number]);
-	else
-		ft_get_fork();
-	ft_eat();
 	return (NULL);
 }

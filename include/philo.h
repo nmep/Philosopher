@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/25 17:54:39 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:20:08 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,13 @@ int		ft_init_data(t_philo *philo, int *tab_data);
 // # ---------------------------------------------	#
 // #												#
 // #												#
-// #			FT_INIT_THREADS.C					#
+// #			ft_init_routineS.C					#
 // #												#
 // #												#
 // # ---------------------------------------------	#
 
-int		ft_init_thread(t_philo *philo);
+int		ft_init_routine(t_philo *philo);
+int		ft_init_routine_data(t_philo *philo, t_fork_pos *save_fork_pose);
 
 // # ---------------------------------------------	#
 // #												#
@@ -116,10 +117,20 @@ int		ft_init_thread(t_philo *philo);
 // # ---------------------------------------------	#
 
 void		*ft_routine(void *arg_philo);
-inline void	ft_init_fork_data(t_philo *philo, t_fork_pos *fork_pose);
-inline int	ft_check_fork(t_fork_pos *fork_pose);
-inline void	ft_think(int philo_n, t_philo *philo);
-inline void ft_sleep(int philo_n, t_philo *philo);
+
+// # ---------------------------------------------	#
+// #												#
+// #												#
+// #				FT_PHILO.C						#
+// #												#
+// #												#
+// # ---------------------------------------------	#
+
+int	ft_philo(t_philo *philo);
+void	ft_init_fork_data(t_philo *philo, t_fork_pos *fork_pose);
+int	ft_check_fork(t_fork_pos *fork_pose);
+void	ft_think(int philo_n, t_philo *philo);
+void ft_sleep(int philo_n, t_philo *philo);
 
 // # ---------------------------------------------	#
 // #												#

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_thread.c                                      :+:      :+:    :+:   */
+/*   init_routine.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/26 10:32:53 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 11:24:43 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ void	ft_fork_number_init(t_fork_pos **fork_pos, int position, int nb_philo)
 	// printf("philo n %d\nfl = %d | fr = %d\n", position, (*fork_pos)[position].l_fork.fork_number, (*fork_pos)[position].r_fork.fork_number);
 }
 
-int	ft_init_thread(t_philo *philo)
+int	ft_init_routine_data(t_philo *philo, t_fork_pos *save_fork_pose)
 {
 	int	i;
-	int	j;
-	t_fork_pos	*save_fork_pose;
 
 	i = -1;
-	printf("nb de philo %d\n", philo->ph_data.p_number);
-	philo->fork.fork_pos = malloc (sizeof(t_fork_pos) * philo->ph_data.p_number);// malloc tableau de pose de fork
 	while (++i < philo->ph_data.p_number)
 		ft_fork_number_init(&philo->fork.fork_pos, i, philo->ph_data.p_number); // init fork pose number
 	save_fork_pose = philo->fork.fork_pos; // addresse du pointeur de fork pose
@@ -40,32 +36,47 @@ int	ft_init_thread(t_philo *philo)
 	philo->fork.tab_fork = malloc(sizeof(pthread_mutex_t) * philo->ph_data.p_number); // malloc talbeau de mutex pour chaque fourchette
 	if (!philo->fork.tab_fork)
 		return (free(philo->ph), ERROR_MALLOC);
+	return (1);
+}
+
+void	ft_init_mutex(t_philo *philo)
+{
+	int	i;
+
 	i = -1;
 	while (++i < philo->ph_data.p_number) // init mutex
 		pthread_mutex_init(&philo->fork.tab_fork[i], NULL);
 	pthread_mutex_init(&philo->fork.fork_pos_incr, NULL);
 	pthread_mutex_init(&philo->print, NULL);
+}
+
+void	ft_clean_routine_data(t_philo *philo, t_fork_pos *save_fork_pose)
+{
+	int	i;
+
 	i = -1;
-	while (++i < philo->ph_data.number_of_time_p_eat) //init threads
-	{
-		j = -1;
-		philo->fork.fork_pos = save_fork_pose;
-		while (++j < philo->ph_data.p_number)
-		{
-			if (pthread_create(&philo->ph[j], NULL, ft_routine, philo) != 0)
-				return (free(philo->ph), free(philo->fork.tab_fork), 0);
-			// usleep(300);
-		}
-		j = -1;
-		while (++j < philo->ph_data.p_number)
-		{
-			if (pthread_join(philo->ph[j], NULL) != 0)
-				return (free(philo->ph), free(philo->fork.tab_fork), 0);
-		}
-	}
+	pthread_mutex_destroy(&philo->print);
+	pthread_mutex_destroy(&philo->fork.fork_pos_incr);
+	while (--i > -1)
+		pthread_mutex_destroy(&philo->fork.tab_fork[i]);
+	free(philo->ph);
+	free(philo->fork.tab_fork);
+	free(save_fork_pose);
+}
+
+int	ft_init_routine(t_philo *philo)
+{
+	int	i;
+	t_fork_pos	*save_fork_pose;
+
+	save_fork_pose = NULL;
+	if (ft_init_routine_data(philo, save_fork_pose) == ERROR_MALLOC)
+		return (ERROR_MALLOC);
+	ft_init_mutex(philo);
+	i = -1;
 	while (++i < philo->ph_data.p_number)
 	{
-		if (pthread_create(philo->ph[i], NULL, ft_routine, NULL) != 0);
+		if (pthread_create(&philo->ph[i], NULL, ft_routine, NULL) != 0)
 			return (free(philo->ph), free(philo->fork.tab_fork), 0);
 	}
 	i = -1;
@@ -74,11 +85,6 @@ int	ft_init_thread(t_philo *philo)
 		if (pthread_join(philo->ph[i], NULL) != 0)
 			return (free(philo->ph), free(philo->fork.tab_fork), 0);
 	}
-	pthread_mutex_destroy(&philo->print);
-	pthread_mutex_destroy(&philo->fork.fork_pos_incr);
-	while (--i > -1)
-		pthread_mutex_destroy(&philo->fork.tab_fork[i]);
-	free(philo->ph);
-	free(philo->fork.tab_fork);
+	ft_clean_routine_data(philo, save_fork_pose);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/26 10:26:28 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 10:55:20 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ inline void ft_sleep(int philo_n, t_philo *philo)
 	pthread_mutex_unlock(&philo->print);
 }
 
-inline void	ft_get_fork(pthread_mutex_t first_lock, pthread_mutex_t second_lock)
-{
-	pthread_
-}
+// inline void	ft_get_fork(pthread_mutex_t first_lock, pthread_mutex_t second_lock)
+// {
+// 	pthread_
+// }
