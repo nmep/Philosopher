@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/24 18:31:24 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 10:32:53 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_init_thread(t_philo *philo)
 	t_fork_pos	*save_fork_pose;
 
 	i = -1;
-	printf("nb de pihlo %d\n", philo->ph_data.p_number);
+	printf("nb de philo %d\n", philo->ph_data.p_number);
 	philo->fork.fork_pos = malloc (sizeof(t_fork_pos) * philo->ph_data.p_number);// malloc tableau de pose de fork
 	while (++i < philo->ph_data.p_number)
 		ft_fork_number_init(&philo->fork.fork_pos, i, philo->ph_data.p_number); // init fork pose number
@@ -44,6 +44,7 @@ int	ft_init_thread(t_philo *philo)
 	while (++i < philo->ph_data.p_number) // init mutex
 		pthread_mutex_init(&philo->fork.tab_fork[i], NULL);
 	pthread_mutex_init(&philo->fork.fork_pos_incr, NULL);
+	pthread_mutex_init(&philo->print, NULL);
 	i = -1;
 	while (++i < philo->ph_data.number_of_time_p_eat) //init threads
 	{
@@ -62,6 +63,18 @@ int	ft_init_thread(t_philo *philo)
 				return (free(philo->ph), free(philo->fork.tab_fork), 0);
 		}
 	}
+	while (++i < philo->ph_data.p_number)
+	{
+		if (pthread_create(philo->ph[i], NULL, ft_routine, NULL) != 0);
+			return (free(philo->ph), free(philo->fork.tab_fork), 0);
+	}
+	i = -1;
+	while (++i < philo->ph_data.p_number)
+	{
+		if (pthread_join(philo->ph[i], NULL) != 0)
+			return (free(philo->ph), free(philo->fork.tab_fork), 0);
+	}
+	pthread_mutex_destroy(&philo->print);
 	pthread_mutex_destroy(&philo->fork.fork_pos_incr);
 	while (--i > -1)
 		pthread_mutex_destroy(&philo->fork.tab_fork[i]);

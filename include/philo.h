@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/24 17:44:13 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/25 17:54:39 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_pihlo
 	pthread_t		*ph;
 	t_philo_data	ph_data;
 	t_mutex			fork;
+	pthread_mutex_t	print;
 	struct timeval	timestamp;
 	
 }	t_philo;
@@ -95,8 +96,30 @@ typedef struct s_pihlo
 
 int		ft_parsing_data(t_philo *philo, char **av, int ac);
 int		ft_init_data(t_philo *philo, int *tab_data);
+
+// # ---------------------------------------------	#
+// #												#
+// #												#
+// #			FT_INIT_THREADS.C					#
+// #												#
+// #												#
+// # ---------------------------------------------	#
+
 int		ft_init_thread(t_philo *philo);
-void	*ft_routine(void *arg_philo);
+
+// # ---------------------------------------------	#
+// #												#
+// #												#
+// #				FT_ROUTINE.C					#
+// #												#
+// #												#
+// # ---------------------------------------------	#
+
+void		*ft_routine(void *arg_philo);
+inline void	ft_init_fork_data(t_philo *philo, t_fork_pos *fork_pose);
+inline int	ft_check_fork(t_fork_pos *fork_pose);
+inline void	ft_think(int philo_n, t_philo *philo);
+inline void ft_sleep(int philo_n, t_philo *philo);
 
 // # ---------------------------------------------	#
 // #												#
@@ -108,5 +131,6 @@ void	*ft_routine(void *arg_philo);
 
 int		ft_is_str_atoiable(char *str);
 bool	ft_atoi(char *str, int *res);
+void	ft_putnbr(int nb);
 
 #endif
