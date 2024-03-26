@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:59:40 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/26 11:05:50 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 19:10:55 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	ft_parsing_data(t_philo *philo, char **av, int ac)
 			return (free(tab_data), ERR_PARSING);
 		j++;
 	}
-	i = -1;
 	if (ft_init_data(philo, tab_data) == ERROR_MALLOC)
 		return (free(tab_data), ERROR_MALLOC);
 	return (1);

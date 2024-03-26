@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/26 12:48:22 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 21:33:31 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,37 @@
 // numero de la fourchette et son etat (prise ou pas)
 typedef struct s_state_fork
 {
-	int	fork_number;
+	int	fork_n;
 	int	state;
-}	t_state_fork;
+}	t_data_fork;
 
-// variable representant les donnes d'une fourchette pour chaque 
-// philospher
-typedef struct s_fork_pos
+// repsente une cause du tableau ph fork pos avec 
+// l fork l'adresse de la case du tableau repsentant la fourchette
+// gauche ou droite pour x philo avec son etat (modifiable au besoin)
+typedef struct s_fork_lr
 {
-	t_state_fork	l_fork;
-	t_state_fork	r_fork;
-}	t_fork_pos;
+	t_data_fork *l_fork;
+	t_data_fork *r_fork;
+}	t_fork_lr;
 
-// tableau de mutex avec variable de taille x philo
-// contenant les donnees de chaque fourchette poser sur la table
-// sur philo x fourchette (mutex) x est a sa gauche, et son etat
-// 			   fourchette (mutex) x est a sa droite, et son etat
+// - fork_pos_state est le tableau de toute les fourchettes dispo et leurs etats
+// - ph fork pos est la second qui rempresente les emplacement gauche et droite
+// de chaque fourchette avec leurs etat modifialbe
+typedef struct s_fork
+{
+	t_data_fork		*fork_pos_state;
+	t_fork_lr		*ph_fork_pos;
+}	t_fork_data;
+
 typedef struct s_mutex
 {
-	pthread_mutex_t	fork_pos_incr;
+	pthread_mutex_t	f_pos_incr;
 	pthread_mutex_t	*tab_fork;
-	pthread_mutex_t	fork_pos_addr_incr;
-	t_fork_pos		*fork_pos;
+	pthread_mutex_t	f_pos_addr_incr;
+	pthread_mutex_t	print;
+	
 }	t_mutex;
 
-// input et ce qui en resulte (tableau de mutex repsentant 
-// les fourchettes) de chaque philosopher.
-// 2 eme structure principale
 typedef struct s_philo_data
 {
 	int	p_number;
@@ -77,13 +81,19 @@ typedef struct s_philo_data
 	int	number_of_time_p_eat;
 }	t_philo_data;
 
+typedef struct s_time
+{
+	struct timeval	timestamp;
+	int	old_time;
+}	t_time;
+
 typedef struct s_pihlo
 {
 	pthread_t		*ph;
 	t_philo_data	ph_data;
-	t_mutex			fork;
-	pthread_mutex_t	print;
-	struct timeval	timestamp;
+	t_fork_data		f_data;
+	t_mutex			mutex;
+	t_time			time;
 	
 }	t_philo;
 
@@ -107,7 +117,7 @@ int		ft_init_data(t_philo *philo, int *tab_data);
 // # ---------------------------------------------	#
 
 int		ft_init_routine(t_philo *philo);
-int		ft_init_routine_data(t_philo *philo, t_fork_pos *save_fork_pose);
+int		ft_init_routine_data(t_philo *philo);
 
 // # ---------------------------------------------	#
 // #												#
@@ -127,11 +137,12 @@ void		*ft_routine(void *arg_philo);
 // #												#
 // # ---------------------------------------------	#
 
-int	ft_philo(t_philo *philo);
-void	ft_init_fork_data(t_philo *philo, t_fork_pos *fork_pose);
-int	ft_check_fork(t_fork_pos *fork_pose);
-void	ft_think(int philo_n, t_philo *philo);
-void ft_sleep(int philo_n, t_philo *philo);
+int			ft_philo(t_philo *philo);
+// void		ft_init_fork_data(t_philo *philo, t_fork_data *fork_pose);
+// int			ft_check_fork(t_fork_pos *fork_pose);
+// void		ft_think(int philo_n, t_philo *philo);
+// void		ft_sleep(int philo_n, t_philo *philo);
+// void		ft_eat(t_philo *philo, pthread_mutex_t first_lock, pthread_mutex_t second_lock, t_fork_pos *current_pose);
 
 // # ---------------------------------------------	#
 // #												#
