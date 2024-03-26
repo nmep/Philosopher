@@ -17,12 +17,13 @@ void	*ft_routine(void *arg_philo)
 	t_philo		*philo;
 	int			i;
 
-	philo = arg_philo; // prendre le parametre du
-	i = -1;
-	while (++i < philo->ph_data.number_of_time_p_eat)
+	philo = arg_philo;
+	i = 0;
+	while (i < philo->ph_data.number_of_time_p_eat)
 	{
 		if (!ft_philo(philo))
 			break ;
+		i++;
 	}
 	return (NULL);
 }

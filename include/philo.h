@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/26 11:20:08 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/26 12:48:22 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ typedef struct s_fork_pos
 typedef struct s_mutex
 {
 	pthread_mutex_t	fork_pos_incr;
-	t_fork_pos		*fork_pos;
 	pthread_mutex_t	*tab_fork;
+	pthread_mutex_t	fork_pos_addr_incr;
+	t_fork_pos		*fork_pos;
 }	t_mutex;
 
 // input et ce qui en resulte (tableau de mutex repsentant 
