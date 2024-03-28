@@ -36,6 +36,7 @@ void	*ft_routine(void *arg_philo)
 	{
 		if (!ft_philo(philo, current_fork_pose))
 			break ;
+		current_fork_pose->hungry = 0;
 		i++;
 	}
 	return (NULL);

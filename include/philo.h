@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/27 22:43:48 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:05:12 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_philo_data
 typedef struct s_time
 {
 	struct timeval	timestamp;
-	int	old_time;
+	int				micro_time;
 }	t_time;
 
 typedef struct s_pihlo
@@ -119,7 +119,7 @@ int		ft_init_data(t_philo *philo, int *tab_data);
 // # ---------------------------------------------	#
 
 int		ft_init_routine(t_philo *philo);
-int		ft_init_routine_data(t_philo *philo);
+int		ft_init_routine_data(t_philo *philo, t_fork_lr *save_fork_pose);
 
 // # ---------------------------------------------	#
 // #												#
@@ -142,7 +142,6 @@ void		*ft_routine(void *arg_philo);
 int			ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
 void		ft_think(t_philo *philo, int philo_n);
 void		ft_eat(t_philo *philo, pthread_mutex_t first_lock, pthread_mutex_t second_lock, t_fork_lr *current_pose);
-// void		ft_init_fork_data(t_philo *philo, t_fork_data *fork_pose);
 int			ft_check_fork(t_fork_lr *fork_pose, t_philo *philo);
 void		ft_sleep(int philo_n, t_philo *philo);
 

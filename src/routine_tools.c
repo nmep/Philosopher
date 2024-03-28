@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/27 22:55:31 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:51:55 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ inline void	ft_think(t_philo *philo, int philo_n)
 inline void ft_sleep(int philo_n, t_philo *philo)
 {
 	// pthread_mutex_lock(&philo->mutex.time);
-	gettimeofday(&philo->time.timestamp, NULL);
 	pthread_mutex_lock(&philo->mutex.print);
+	gettimeofday(&philo->time.timestamp, NULL);
 	printf("%ld philo %d is sleeping\n", philo->time.timestamp.tv_usec, philo_n);
 	// pthread_mutex_unlock(&philo->mutex.time);
 	pthread_mutex_unlock(&philo->mutex.print);
@@ -54,13 +54,13 @@ inline	void ft_eat(t_philo *philo, pthread_mutex_t first_lock, pthread_mutex_t s
 	current_pose->r_fork->state = 1;
 	pthread_mutex_unlock(&philo->mutex.f_state);
 	pthread_mutex_lock(&philo->mutex.print);
-	// pthread_mutex_lock(&philo->mutex.time);
+	pthread_mutex_lock(&philo->mutex.time);
 	gettimeofday(&philo->time.timestamp, NULL);
 	printf("%ld philo %d has eaten\n", philo->time.timestamp.tv_usec, current_pose->l_fork->fork_n);
-	// pthread_mutex_unlock(&philo->mutex.time);
+	pthread_mutex_unlock(&philo->mutex.time);
 	pthread_mutex_unlock(&philo->mutex.print);
 	usleep(philo->ph_data.time_to_eat);
-	current_pose->hungry++;
+	current_pose->hungry = 1;
 	pthread_mutex_lock(&philo->mutex.f_state);
 	current_pose->l_fork->state = 0;
 	current_pose->r_fork->state = 0;

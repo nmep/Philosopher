@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/27 22:45:09 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/28 14:05:36 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,30 @@ void	ft_get_fork(t_philo *philo, int i)
 	}
 	else
 		philo->f_data.ph_fork_pos[i].r_fork = &philo->f_data.fork_pos_state[i - 1];
+	philo->f_data.ph_fork_pos[i].hungry = 0;
 }
 
 // fonction servant a assigner x et y fourchette a z pihlosopher
-int	ft_fork_position_init(t_philo *philo)
+int	ft_fork_position_init(t_philo *philo, t_fork_lr *save_fork_pose)
 {
 	int	i;
 
 	philo->f_data.ph_fork_pos = malloc(sizeof(t_fork_lr) * philo->ph_data.p_number);
 	if (!philo->f_data.ph_fork_pos)
 		return (ERROR_MALLOC);
+	save_fork_pose = philo->f_data.ph_fork_pos;
 	i = -1;
 	while (++i < philo->ph_data.p_number)
 		ft_get_fork(philo, i);
-	philo->f_data.ph_fork_pos->hungry = 0;
 	return (1);
 }
 
-int	ft_init_routine_data(t_philo *philo)
+int	ft_init_routine_data(t_philo *philo, t_fork_lr *save_fork_pose)
 {
 	int	i;
 
 	i = -1;
-	if (ft_fork_position_init(philo) == ERROR_MALLOC) // init fork pose number
+	if (ft_fork_position_init(philo, save_fork_pose) == ERROR_MALLOC) // init fork pose number
 		return (ERROR_MALLOC);
 	philo->ph = malloc(sizeof(pthread_t) * philo->ph_data.p_number); // malloc tableau thread philo
 	if (!philo->ph)
@@ -67,7 +68,7 @@ void	ft_init_mutex(t_philo *philo)
 	pthread_mutex_init(&philo->mutex.time, NULL);
 }
 
-void	ft_clean_routine_data(t_philo *philo, t_fork_data *save_fork_pose, int *i)
+void	ft_clean_routine_data(t_philo *philo, t_fork_lr *save_fork_pose, int *i)
 {
 	pthread_mutex_destroy(&philo->mutex.time);
 	pthread_mutex_destroy(&philo->mutex.f_pos_addr_incr);
@@ -77,16 +78,17 @@ void	ft_clean_routine_data(t_philo *philo, t_fork_data *save_fork_pose, int *i)
 		pthread_mutex_destroy(&philo->mutex.tab_fork[(*i)]);
 	free(philo->ph);
 	free(philo->mutex.tab_fork);
+	// (void)save_fork_pose;
 	free(save_fork_pose);
 }
 
 int	ft_init_routine(t_philo *philo)
 {
 	int				i;
-	t_data_fork		*save_fork_pose;
+	t_fork_lr		*save_fork_pose;
 
 	save_fork_pose = NULL;
-	if (ft_init_routine_data(philo) == ERROR_MALLOC)
+	if (ft_init_routine_data(philo, save_fork_pose) == ERROR_MALLOC)
 		return (ERROR_MALLOC);
 	ft_init_mutex(philo);
 	i = -1;
@@ -101,6 +103,6 @@ int	ft_init_routine(t_philo *philo)
 		if (pthread_join(philo->ph[i], NULL) != 0)
 			return (free(philo->ph), free(philo->f_data.fork_pos_state), 0);
 	}
-	// ft_clean_routine_data(philo, save_fork_pose, &i);
+	ft_clean_routine_data(philo, save_fork_pose, &i);
 	return (1);
 }
