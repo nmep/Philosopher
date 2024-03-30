@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/28 14:05:12 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/30 17:58:33 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_mutex
 	pthread_mutex_t	f_pos_addr_incr;
 	pthread_mutex_t time;
 	pthread_mutex_t	print;
-	
+	pthread_mutex_t	start;
 }	t_mutex;
 
 typedef struct s_philo_data
@@ -81,11 +81,14 @@ typedef struct s_philo_data
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_time_p_eat;
+	int	time_to_think;
 }	t_philo_data;
 
 typedef struct s_time
 {
 	struct timeval	timestamp;
+	struct timeval	start;
+	struct timeval	end;
 	int				micro_time;
 }	t_time;
 
@@ -96,7 +99,7 @@ typedef struct s_pihlo
 	t_fork_data		f_data;
 	t_mutex			mutex;
 	t_time			time;
-	
+	int				start;
 }	t_philo;
 
 // # ---------------------------------------------	#
@@ -141,8 +144,8 @@ void		*ft_routine(void *arg_philo);
 
 int			ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
 void		ft_think(t_philo *philo, int philo_n);
-void		ft_eat(t_philo *philo, pthread_mutex_t first_lock, pthread_mutex_t second_lock, t_fork_lr *current_pose);
-int			ft_check_fork(t_fork_lr *fork_pose, t_philo *philo);
+void		ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose);
+// int			ft_check_fork(t_fork_lr *fork_pose, t_philo *philo);
 void		ft_sleep(int philo_n, t_philo *philo);
 
 // # ---------------------------------------------	#

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:59:37 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/26 20:39:57 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/28 16:31:06 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	ft_init_data(t_philo *philo, int *tab_data)
 	philo->f_data.fork_pos_state = malloc(sizeof(t_data_fork) * philo->ph_data.p_number);
 	if (!philo->f_data.fork_pos_state)
 		return (ERROR_MALLOC);
+	philo->ph_data.time_to_think = philo->ph_data.time_to_eat - (philo->ph_data.time_to_sleep* 0.3);
 	i = -1;
 	while (++i < philo->ph_data.p_number)
 	{

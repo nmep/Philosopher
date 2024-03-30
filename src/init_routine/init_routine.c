@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/28 14:05:36 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/03/30 18:10:53 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ void	ft_init_mutex(t_philo *philo)
 	pthread_mutex_init(&philo->mutex.print, NULL);
 	pthread_mutex_init(&philo->mutex.f_pos_addr_incr, NULL);
 	pthread_mutex_init(&philo->mutex.time, NULL);
+	pthread_mutex_init(&philo->mutex.start, NULL);
 }
 
 void	ft_clean_routine_data(t_philo *philo, t_fork_lr *save_fork_pose, int *i)
 {
+	pthread_mutex_destroy(&philo->mutex.start);
 	pthread_mutex_destroy(&philo->mutex.time);
 	pthread_mutex_destroy(&philo->mutex.f_pos_addr_incr);
 	pthread_mutex_destroy(&philo->mutex.print);
