@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/01 16:15:04 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/01 18:14:57 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ typedef struct s_state_fork
 // gauche ou droite pour x philo avec son etat (modifiable au besoin)
 typedef struct s_fork_lr
 {
-	t_data_fork *l_fork;
-	t_data_fork *r_fork;
-	int			hungry;
+	t_data_fork	*l_fork;
+	t_data_fork	*r_fork;
 }	t_fork_lr;
 
 // - fork_pos_state est le tableau de toute les fourchettes dispo et leurs etats
@@ -97,7 +96,7 @@ typedef struct s_pihlo
 	t_fork_data		f_data;
 	t_mutex			mutex;
 	t_time			time;
-	int				start;
+	int				last_meal;
 }	t_philo;
 
 // # ---------------------------------------------	#
@@ -143,7 +142,6 @@ void		*ft_routine(void *arg_philo);
 int			ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
 void		ft_think(t_philo *philo, int philo_n);
 void		ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose);
-// int			ft_check_fork(t_fork_lr *fork_pose, t_philo *philo);
 void		ft_sleep(int philo_n, t_philo *philo);
 
 // # ---------------------------------------------	#
