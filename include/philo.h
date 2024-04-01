@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/31 09:30:36 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/01 16:15:04 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ typedef struct s_philo_data
 typedef struct s_time
 {
 	struct timeval	timestamp;
-	struct timeval	start;
-	struct timeval	end;
-	int				micro_time;
+	long			time_start;
 }	t_time;
 
 typedef struct s_pihlo

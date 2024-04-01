@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/31 09:53:04 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/01 16:02:23 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,8 @@ int	ft_init_routine(t_philo *philo)
 	i = -1;
 	while (++i < philo->ph_data.p_number)
 	{
-		// pthread_mutex_lock(&philo->mutex.start);
 		if (pthread_create(&philo->ph[i], NULL, ft_routine, philo) != 0)
 			return (free(philo->ph), free(philo->f_data.fork_pos_state), 0);
-		// pthread_mutex_unlock(&philo->mutex.start);
 	}
 	i = -1;
 	while (++i < philo->ph_data.p_number)
