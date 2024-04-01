@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/01 21:03:18 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/01 22:13:51 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ inline void ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t 
 	printf("%ld %d has taken a fork\n", ft_print_time(philo, NULL), current_pose->l_fork->fork_n + 1);
 	gettimeofday(&philo->time.timestamp, NULL);
 	printf("%ld %d is eating\n", ft_print_time(philo, &philo->last_meal), current_pose->l_fork->fork_n + 1);
-	// printf("philo %d last meal = %d\n",current_pose->l_fork->fork_n, philo->last_meal);
 	pthread_mutex_unlock(&philo->mutex.print);
 	ft_usleep(philo->ph_data.time_to_eat);
 	pthread_mutex_unlock(second_lock);

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/01 17:33:52 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/02 00:17:02 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	ft_init_routine_data(t_philo *philo, t_fork_lr *save_fork_pose)
 	int	i;
 
 	i = -1;
+	philo->last_meal = 0;
+	philo->dead = 0;
 	if (ft_fork_position_init(philo, save_fork_pose) == ERROR_MALLOC) // init fork pose number
 		return (ERROR_MALLOC);
 	philo->ph = malloc(sizeof(pthread_t) * philo->ph_data.p_number); // malloc tableau thread philo
@@ -95,9 +97,10 @@ int	ft_init_routine(t_philo *philo)
 	while (++i < philo->ph_data.p_number)
 	{
 		if (pthread_create(&philo->ph[i], NULL, ft_routine, philo) != 0)
-			return (free(philo->ph), free(philo->f_data.fork_pos_state), 0);
+			return (free(philo->f_data.fork_pos_state), 0);
 	}
 	i = -1;
+	printf("last meal = %d\n", philo->last_meal);
 	while (++i < philo->ph_data.p_number)
 	{
 		if (pthread_join(philo->ph[i], NULL) != 0)

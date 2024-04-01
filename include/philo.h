@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/01 18:14:57 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/02 00:10:51 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_pihlo
 	t_mutex			mutex;
 	t_time			time;
 	int				last_meal;
+	int				dead;
 }	t_philo;
 
 // # ---------------------------------------------	#

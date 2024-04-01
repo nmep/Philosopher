@@ -26,6 +26,8 @@ void	*ft_routine(void *arg_philo)
 	pthread_mutex_unlock(&philo->mutex.f_pos_addr_incr);
 	i = -1;
 	while (++i < philo->ph_data.number_of_time_p_eat)
+	{
 		ft_philo(philo, current_fork_pose);
+	}
 	return (NULL);
 }
