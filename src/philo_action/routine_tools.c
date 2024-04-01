@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/01 19:19:36 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/01 21:03:18 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ inline void ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t 
 	// printf("philo %d last meal = %d\n",current_pose->l_fork->fork_n, philo->last_meal);
 	pthread_mutex_unlock(&philo->mutex.print);
 	ft_usleep(philo->ph_data.time_to_eat);
-	pthread_mutex_unlock(first_lock);
 	pthread_mutex_unlock(second_lock);
+	pthread_mutex_unlock(first_lock);
 }
