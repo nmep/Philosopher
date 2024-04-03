@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/02 00:10:51 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 15:37:59 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_fork_lr
 {
 	t_data_fork	*l_fork;
 	t_data_fork	*r_fork;
+	int			last_meal;
 }	t_fork_lr;
 
 // - fork_pos_state est le tableau de toute les fourchettes dispo et leurs etats
@@ -65,12 +66,10 @@ typedef struct s_fork
 
 typedef struct s_mutex
 {
-	pthread_mutex_t	f_state;
 	pthread_mutex_t	*tab_fork;
 	pthread_mutex_t	f_pos_addr_incr;
-	pthread_mutex_t time;
 	pthread_mutex_t	print;
-	pthread_mutex_t	start;
+	pthread_mutex_t	death;
 }	t_mutex;
 
 typedef struct s_philo_data
@@ -96,7 +95,6 @@ typedef struct s_pihlo
 	t_fork_data		f_data;
 	t_mutex			mutex;
 	t_time			time;
-	int				last_meal;
 	int				dead;
 }	t_philo;
 
@@ -141,9 +139,10 @@ void		*ft_routine(void *arg_philo);
 // # ---------------------------------------------	#
 
 int			ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
-void		ft_think(t_philo *philo, int philo_n);
-void		ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose);
-void		ft_sleep(int philo_n, t_philo *philo);
+int		ft_think(t_philo *philo, int philo_n);
+int		ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose);
+void	ft_sleep(int philo_n, t_philo *philo);
+int		ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose);
 
 // # ---------------------------------------------	#
 // #												#

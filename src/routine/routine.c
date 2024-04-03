@@ -27,7 +27,8 @@ void	*ft_routine(void *arg_philo)
 	i = -1;
 	while (++i < philo->ph_data.number_of_time_p_eat)
 	{
-		ft_philo(philo, current_fork_pose);
+		if (!ft_philo(philo, current_fork_pose))
+			return (NULL);
 	}
 	return (NULL);
 }
