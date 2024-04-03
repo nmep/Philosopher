@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:39:08 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/01 22:28:29 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 16:27:32 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 	struct timeval start_time;
 	int		check;
 
-	if (ac != 6)
+	if (ac != 5 && ac != 6)
 		return (printf(ERR_MSG), ERR_PARSING);
 	check = ft_parsing_data(&philo, av, ac);
 	if (check == ERROR_MALLOC)
@@ -30,5 +30,6 @@ int	main(int ac, char **av)
 	check = ft_init_routine(&philo);
 	if (check == ERROR_MALLOC)
 		return (printf("ERROR MALLOC\n"), ERROR_MALLOC);
+	free(philo.f_data.fork_pos_state);
 	return (0);
 }

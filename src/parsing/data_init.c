@@ -6,33 +6,28 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:59:37 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/03/28 16:31:06 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 16:22:21 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// si len arg = 4 alors le nombre de fois que les philos doivent manger
-// est de av[6].
-// sinon le nombre de fois sera infini
-int	ft_init_data(t_philo *philo, int *tab_data)
+int	ft_init_data(t_philo *philo, int *tab_data, int len_tab)
 {
 	int		i;
 
 	i = -1;
-	// le dernier argument est optionnel, 
-	//si len de tab_data est de 4 c'est qu'il n'y a pas le dernier arg
-	while (++i <= 4)
+	if (len_tab == 4)
+		philo->ph_data.number_of_time_p_eat = -1;
+	while (++i < len_tab)
 		*(((int *) &philo->ph_data) + i) = tab_data[i];
 	philo->f_data.fork_pos_state = malloc(sizeof(t_data_fork) * philo->ph_data.p_number);
 	if (!philo->f_data.fork_pos_state)
 		return (ERROR_MALLOC);
-	philo->ph_data.time_to_think = philo->ph_data.time_to_eat - (philo->ph_data.time_to_sleep* 0.3);
 	i = -1;
 	while (++i < philo->ph_data.p_number)
 	{
 		philo->f_data.fork_pos_state[i].fork_n = i;
-		philo->f_data.fork_pos_state[i].state = 0;
 	}
 	i = -1;
 	free(tab_data);

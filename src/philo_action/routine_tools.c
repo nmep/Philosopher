@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/03 16:00:34 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:33:57 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ long	ft_print_time(t_philo *philo, int *last_meal)
 	long			res;
 
 	gettimeofday(&t, NULL);
-	res = (t.tv_sec * 1e3 + t.tv_usec * 1e-3) - philo->time.time_start;
+	res = (t.tv_sec * 1000 + t.tv_usec * 0.001) - philo->time.time_start;
 	if (last_meal)
 		*last_meal = (int) res;
 	return (res);
@@ -29,17 +29,23 @@ long	ft_timestamp(void)
 	struct timeval t;
 
 	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1e3) + (t.tv_usec * 1e-3));
+	return ((t.tv_sec * 1000) + (t.tv_usec * 0.001));
 }
 
 void	ft_usleep(int elapsed, t_philo *philo)
 {
 	long	time;
 
-	(void)philo;
 	time = ft_timestamp();
 	while (1)
 	{
+		pthread_mutex_lock(&philo->mutex.print);
+		if (philo->dead == 1)
+		{
+			pthread_mutex_unlock(&philo->mutex.print);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->mutex.print);
 		if (ft_timestamp() - time >= elapsed)
 			break ;
 		usleep(1);
@@ -48,24 +54,25 @@ void	ft_usleep(int elapsed, t_philo *philo)
 
 inline int	ft_think(t_philo *philo, int philo_n)
 {
-	pthread_mutex_lock(&philo->mutex.death);
-	if (philo->dead == 1)
-		return (pthread_mutex_unlock(&philo->mutex.death), 0);
-	pthread_mutex_unlock(&philo->mutex.death);
 	pthread_mutex_lock(&philo->mutex.print);
 	gettimeofday(&philo->time.timestamp, NULL);
+	if (philo->dead == 1)
+		return (0);
 	printf("%ld %d is thinking\n", ft_print_time(philo, NULL), philo_n + 1);
 	pthread_mutex_unlock(&philo->mutex.print);
 	return (1);
 }
 
-inline void ft_sleep(int philo_n, t_philo *philo)
+inline int ft_sleep(int philo_n, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->mutex.print);
 	gettimeofday(&philo->time.timestamp, NULL);
+	if (philo->dead == 1)
+		return (0);
 	printf("%ld %d is sleeping\n", ft_print_time(philo, NULL), philo_n + 1);
 	pthread_mutex_unlock(&philo->mutex.print);
 	ft_usleep(philo->ph_data.time_to_sleep, philo);
+	return (1);
 }
 
 inline int ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose)
@@ -92,20 +99,19 @@ inline int ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *
 
 inline int	ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose)
 {
-	int	time_stamp;
+	long	time_stamp;
 
-	pthread_mutex_lock(&philo->mutex.death);
+	time_stamp = 0;
+	pthread_mutex_lock(&philo->mutex.print);
+	time_stamp = ((ft_timestamp() - philo->time.time_start) - current_fork_pose->last_meal);
 	if (philo->dead == 1)
-		return (pthread_mutex_unlock(&philo->mutex.death), 0);
-	pthread_mutex_unlock(&philo->mutex.death);
-	time_stamp = (ft_timestamp() - philo->time.time_start) - current_fork_pose->last_meal;
+		return (pthread_mutex_unlock(&philo->mutex.print), 0);
+	pthread_mutex_unlock(&philo->mutex.print);
 	if (time_stamp >= philo->ph_data.time_to_die)
 	{
-		pthread_mutex_lock(&philo->mutex.death);
-		philo->dead = 1;
-		pthread_mutex_unlock(&philo->mutex.death);
 		pthread_mutex_lock(&philo->mutex.print);
-		printf("%d %d died\n", time_stamp, current_fork_pose->l_fork->fork_n);
+		philo->dead = 1;
+		printf("%ld %d died\n", time_stamp, current_fork_pose->l_fork->fork_n + 1);
 		pthread_mutex_unlock(&philo->mutex.print);
 		return (0);
 	}

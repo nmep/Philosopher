@@ -27,8 +27,15 @@ void	*ft_routine(void *arg_philo)
 	i = -1;
 	while (++i < philo->ph_data.number_of_time_p_eat)
 	{
+		pthread_mutex_lock(&philo->mutex.print);
+		if (philo->dead == 1)
+		{
+			pthread_mutex_unlock(&philo->mutex.print);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->mutex.print);
 		if (!ft_philo(philo, current_fork_pose))
-			return (NULL);
+			break ;
 	}
 	return (NULL);
 }

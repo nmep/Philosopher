@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/03 15:37:59 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:38:16 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@
 typedef struct s_state_fork
 {
 	int	fork_n;
-	int	state;
 }	t_data_fork;
 
 // repsente une cause du tableau ph fork pos avec 
@@ -79,7 +78,6 @@ typedef struct s_philo_data
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	number_of_time_p_eat;
-	int	time_to_think;
 }	t_philo_data;
 
 typedef struct s_time
@@ -107,7 +105,7 @@ typedef struct s_pihlo
 // # ---------------------------------------------	#
 
 int		ft_parsing_data(t_philo *philo, char **av, int ac);
-int		ft_init_data(t_philo *philo, int *tab_data);
+int		ft_init_data(t_philo *philo, int *tab_data, int len_tab);
 
 // # ---------------------------------------------	#
 // #												#
@@ -118,7 +116,7 @@ int		ft_init_data(t_philo *philo, int *tab_data);
 // # ---------------------------------------------	#
 
 int		ft_init_routine(t_philo *philo);
-int		ft_init_routine_data(t_philo *philo, t_fork_lr *save_fork_pose);
+int		ft_init_routine_data(t_philo *philo, t_fork_lr **save_fork_pose);
 
 // # ---------------------------------------------	#
 // #												#
@@ -138,10 +136,10 @@ void		*ft_routine(void *arg_philo);
 // #												#
 // # ---------------------------------------------	#
 
-int			ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
+int		ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
 int		ft_think(t_philo *philo, int philo_n);
 int		ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose);
-void	ft_sleep(int philo_n, t_philo *philo);
+int		ft_sleep(int philo_n, t_philo *philo);
 int		ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose);
 
 // # ---------------------------------------------	#
