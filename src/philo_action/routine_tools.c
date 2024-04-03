@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/03 19:33:57 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 20:00:20 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,13 @@ inline int	ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose)
 	time_stamp = ((ft_timestamp() - philo->time.time_start) - current_fork_pose->last_meal);
 	if (philo->dead == 1)
 		return (pthread_mutex_unlock(&philo->mutex.print), 0);
-	pthread_mutex_unlock(&philo->mutex.print);
 	if (time_stamp >= philo->ph_data.time_to_die)
 	{
-		pthread_mutex_lock(&philo->mutex.print);
 		philo->dead = 1;
 		printf("%ld %d died\n", time_stamp, current_fork_pose->l_fork->fork_n + 1);
 		pthread_mutex_unlock(&philo->mutex.print);
 		return (0);
 	}
+	pthread_mutex_unlock(&philo->mutex.print);
 	return (1);
 }

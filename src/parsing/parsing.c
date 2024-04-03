@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:59:40 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/03 16:17:40 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/03 19:54:10 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_parsing_data(t_philo *philo, char **av, int ac)
 	while (++i < ac)
 	{
 		tab_data[j] = 0;
-		if (!ft_atoi(av[i], &tab_data[j]) || tab_data[j] == 0)
+		if (!ft_atoi(av[i], &tab_data[j]))
 			return (free(tab_data), ERR_PARSING);
 		j++;
 	}

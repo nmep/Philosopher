@@ -25,17 +25,35 @@ void	*ft_routine(void *arg_philo)
 	philo->f_data.ph_fork_pos++;
 	pthread_mutex_unlock(&philo->mutex.f_pos_addr_incr);
 	i = -1;
-	while (++i < philo->ph_data.number_of_time_p_eat)
+	if (philo->ph_data.number_of_time_p_eat == -1)
 	{
-		pthread_mutex_lock(&philo->mutex.print);
-		if (philo->dead == 1)
+		while (true)
 		{
+			pthread_mutex_lock(&philo->mutex.print);
+			if (philo->dead == 1)
+			{
+				pthread_mutex_unlock(&philo->mutex.print);
+				break ;
+			}
 			pthread_mutex_unlock(&philo->mutex.print);
-			break ;
+			if (!ft_philo(philo, current_fork_pose))
+				break ;
 		}
-		pthread_mutex_unlock(&philo->mutex.print);
-		if (!ft_philo(philo, current_fork_pose))
-			break ;
+	}
+	else
+	{
+		while (++i < philo->ph_data.number_of_time_p_eat)
+		{
+			pthread_mutex_lock(&philo->mutex.print);
+			if (philo->dead == 1)
+			{
+				pthread_mutex_unlock(&philo->mutex.print);
+				break ;
+			}
+			pthread_mutex_unlock(&philo->mutex.print);
+			if (!ft_philo(philo, current_fork_pose))
+				break ;
+		}
 	}
 	return (NULL);
 }
