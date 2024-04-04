@@ -6,17 +6,12 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:59:40 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/03 19:54:10 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/04 08:00:30 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// va check dans av si les arg sont bons a etre pris en compte
-// attention si il est possible que philo se lance avec moin de 5 arg il faudra 
-// check le cas d'erreur// va check dans av si les arg sont bons a etre pris en compte
-// attention si il est possible que philo se lance avec moin de 5 arg il faudra 
-// check le cas d'erreur
 int	ft_parsing_data(t_philo *philo, char **av, int ac)
 {
 	int	i;

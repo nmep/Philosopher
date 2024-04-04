@@ -6,12 +6,12 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/03 19:38:16 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/04 10:09:56 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIHLO_H
-# define PIHLO_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <limits.h>
 # include <pthread.h>
@@ -20,20 +20,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/time.h>
-
-# define ERR_MSG "argument should be enter as follow\n"\
-				"ARG 1 [number_of_philosophers]\n"     \
-				"ARG 2 [time_to_die]\n"                \
-				"ARG 3 [time_to_eat]\n"                \
-				"ARG 4 [time_to_sleep]\n"              \
-				"ARG 5 [number_of_times_each_philosopher_must_eat]\n"
-
-# define ERR_MSG_PARS "arguments should enter as follow\n" \
-						"ARG 1 [int > 0]\n"                  \
-						"ARG 2 [int > 0]\n"                  \
-						"ARG 3 [int > 0]\n"                  \
-						"ARG 4 [int > 0]\n"                  \
-						"ARG 5 [int > 0]\n"
 
 # define ERR_PARSING 2
 # define ERROR_MALLOC 3
@@ -99,59 +85,74 @@ typedef struct s_pihlo
 // # ---------------------------------------------	#
 // #												#
 // #												#
-// #				FT_PARSE.C						#
+// #				PARSING							#
 // #												#
 // #												#
 // # ---------------------------------------------	#
 
-int		ft_parsing_data(t_philo *philo, char **av, int ac);
+// data init.c
 int		ft_init_data(t_philo *philo, int *tab_data, int len_tab);
 
+// parsing.c
+int		ft_parsing_data(t_philo *philo, char **av, int ac);
+
 // # ---------------------------------------------	#
 // #												#
 // #												#
-// #			ft_init_routineS.C					#
+// #				INIT ROUTINE					#
 // #												#
 // #												#
 // # ---------------------------------------------	#
 
-int		ft_init_routine(t_philo *philo);
+// ft_fork_init.c
+void	ft_get_fork(t_philo *philo, int i);
+int		ft_fork_position_init(t_philo *philo, t_fork_lr **save_fork_pose);
+
+// ft_init_routine.c
 int		ft_init_routine_data(t_philo *philo, t_fork_lr **save_fork_pose);
+void	ft_init_mutex(t_philo *philo);
+void	ft_clean_routine_data(t_philo *philo,
+			t_fork_lr *save_fork_pose, int *i);
+int		ft_init_routine(t_philo *philo);
 
 // # ---------------------------------------------	#
 // #												#
 // #												#
-// #				FT_ROUTINE.C					#
-// #												#
-// #												#
-// # ---------------------------------------------	#
-
-void		*ft_routine(void *arg_philo);
-
-// # ---------------------------------------------	#
-// #												#
-// #												#
-// #				FT_PHILO.C						#
-// #												#
+// #					ROUTINE						#
 // #												#
 // # ---------------------------------------------	#
 
-int		ft_philo(t_philo *philo, t_fork_lr *current_fork_pose);
+// ft_loop_eat.c
+void	ft_loop_n_time(t_philo *philo, t_fork_lr *current_fork_pose);
+void	ft_infinite_loop(t_philo *philo, t_fork_lr *current_fork_pose);
+void	*ft_loop_eat_n_time(void *arg_philo);
+
+// ft_routine.c
+int		ft_routine(t_philo *philo, t_fork_lr *current_fork_pose);
+
+// ft_philo_actions.c
 int		ft_think(t_philo *philo, int philo_n);
-int		ft_eat(t_philo *philo, pthread_mutex_t *first_lock, pthread_mutex_t *second_lock, t_fork_lr *current_pose);
 int		ft_sleep(int philo_n, t_philo *philo);
+int		ft_eat(t_philo *philo, pthread_mutex_t *first_lock,
+			pthread_mutex_t *second_lock, t_fork_lr *current_pose);
 int		ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose);
 
+// ft_time_gestion.c
+long	ft_print_time(t_philo *philo, int *last_meal);
+long	ft_timestamp(void);
+void	ft_usleep(int elapsed, t_philo *philo);
+
 // # ---------------------------------------------	#
 // #												#
 // #												#
-// #					TOOLS.C						#
+// #					TOOLS						#
 // #												#
 // #												#
 // # ---------------------------------------------	#
 
+// tools.c
+int		ft_strlen(char *str);
 int		ft_is_str_atoiable(char *str);
 bool	ft_atoi(char *str, int *res);
-void	ft_putnbr(int nb);
 
 #endif
