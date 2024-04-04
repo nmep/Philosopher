@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 13:18:01 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/04 15:07:33 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,13 @@ inline int	ft_eat(t_philo *philo, \
 		return (0);
 	pthread_mutex_lock(first_lock);
 	if (!ft_is_dead(philo, current_pose))
-	{
-		pthread_mutex_unlock(first_lock);
-		return (0);
-	}
+		return (pthread_mutex_unlock(first_lock), 0);
 	if (second_lock == NULL)
-	{
-		pthread_mutex_unlock(first_lock);
-		return (0);
-	}
+		return (pthread_mutex_unlock(first_lock), 0);
 	pthread_mutex_lock(second_lock);
 	if (!ft_is_dead(philo, current_pose))
-	{
-		pthread_mutex_unlock(first_lock);
-		pthread_mutex_unlock(second_lock);
-		return (0);
-	}
+		return (pthread_mutex_unlock(first_lock), \
+		pthread_mutex_unlock(second_lock), 0);
 	pthread_mutex_lock(&philo->mutex.print);
 	gettimeofday(&philo->time.timestamp, NULL);
 	printf("%ld %d has taken a fork\n", \
@@ -85,7 +76,7 @@ inline int	ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose)
 {
 	long	time_stamp;
 
-	time_stamp = 0;
+	// time_stamp = 0;
 	pthread_mutex_lock(&philo->mutex.death);
 	if (philo->dead == 1)
 	{

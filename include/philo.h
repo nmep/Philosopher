@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 13:42:31 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/04 15:04:18 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	*ft_loop_eat_n_time(void *arg_philo);
 // ft_routine.c
 int		ft_routine(t_philo *philo, t_fork_lr *current_fork_pose);
 void	ft_one_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
-int	ft_last_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
+int		ft_last_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
 
 // ft_philo_actions.c
 int		ft_think(t_philo *philo, int philo_n, t_fork_lr *current_fork_pose);
