@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine_tools_2.c                                  :+:      :+:    :+:   */
+/*   ft_time_gestion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 08:07:01 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 08:11:41 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/04 13:18:46 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,18 @@ void	ft_usleep(int elapsed, t_philo *philo)
 	time = ft_timestamp();
 	while (1)
 	{
-		pthread_mutex_lock(&philo->mutex.print);
+		pthread_mutex_lock(&philo->mutex.death);
 		if (philo->dead == 1)
 		{
-			pthread_mutex_unlock(&philo->mutex.print);
+			pthread_mutex_unlock(&philo->mutex.death);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->mutex.print);
 		if (ft_timestamp() - time >= elapsed)
+		{
+			pthread_mutex_unlock(&philo->mutex.death);
 			break ;
+		}
+		pthread_mutex_unlock(&philo->mutex.death);
 		usleep(1);
 	}
 }

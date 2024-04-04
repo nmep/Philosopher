@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 08:18:46 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 08:25:29 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/04 13:21:58 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_get_fork(t_philo *philo, int i)
 		philo->f_data.ph_fork_pos[i].r_fork = \
 			&philo->f_data.fork_pos_state[i - 1];
 	philo->f_data.ph_fork_pos[i].last_meal = 0;
+	if (philo->ph_data.p_number == 1)
+		philo->f_data.ph_fork_pos[i].r_fork = NULL;
 }
 
 // fonction servant a assigner x et y fourchette a z pihlosopher

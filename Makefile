@@ -6,7 +6,7 @@
 #    By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/18 16:13:11 by lgarfi            #+#    #+#              #
-#    Updated: 2024/04/03 16:07:38 by lgarfi           ###   ########.fr        #
+#    Updated: 2024/04/04 10:20:46 by lgarfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ flags = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=thread
 
 SRC = $(subst ./src, ./obj, $(shell find ./src -name "*.c" -type f))
 OBJ = $(SRC:.c=.o)
-
 
 OBJ_DIR = $(subst ./src, ./obj, $(shell find ./src/ -type d))
 OBJ_DIR_FILE = obj
@@ -41,8 +40,5 @@ fclean: clean
 	rm -f $(name)
 
 re: fclean all
-
-# test:
-# 	echo $(OBJ_DIR)
 
 .PHONY: all clean fclean re
