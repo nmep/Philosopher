@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:30:27 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/08 17:07:58 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 18:05:39 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@ long	ft_get_time_milli()
 	return ((tv.tv_sec * 1000) + (tv.tv_usec * 0.001));
 }
 
-int	ft_print_time(t_philo *philo)
+int	ft_print_time(t_philo *philo, int *last_meal)
 {
-	return (ft_get_time_milli() - philo->time.start);
+	int	timestamp;
+	
+	timestamp = ft_get_time_milli();
+	if (last_meal)
+		*last_meal = timestamp;
+	return (timestamp - philo->time.start);
 }
 
 int	ft_usleep(int time_to_wait)

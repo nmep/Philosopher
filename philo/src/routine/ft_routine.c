@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:45:49 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 15:11:29 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 21:08:25 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ inline int	ft_routine(t_philo *philo, t_fork_lr *current_fork_pose)
 {
 	if (!ft_think(philo, current_fork_pose->l_fork->fork_n, current_fork_pose))
 		return (0);
-	if (current_fork_pose->l_fork->fork_n % 2 != 0)
+	if ((current_fork_pose->l_fork->fork_n + 1) % 2 != 0)
 	{
+		// printf("philo %d va manger\n", current_fork_pose->l_fork->fork_n);
 		if (!ft_last_philo_eat(philo, current_fork_pose))
 			return (0);
 	}

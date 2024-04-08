@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:34:42 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/08 17:30:08 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 17:44:54 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 int	ft_init_philo(t_philo *philo, int philo_n, int *pid_tab, int *status)
 {
 	pid_t	pid;
+	int		last_meal;
 
+	last_meal = 0;
 	pid = fork();
 	if (pid == -1)
 		return (ERROR_FORK);
 	if (pid == 0)
 	{
 		printf("dans enfant philo %d\n", philo_n);
-		*status = ft_loop_eat(philo, philo_n, philo->fork);
+		*status = ft_loop_eat(philo, philo_n, &last_meal);
 		printf("apres exit\n");
 	}
 	else
