@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_routine.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 10:14:18 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 22:31:16 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_init_routine_data(t_philo *philo, t_fork_lr **save_fork_pose)
 {
-	int	i;
-
-	i = -1;
 	philo->dead = 0;
 	if (ft_fork_position_init(philo, save_fork_pose) == ERROR_MALLOC)
 		return (ERROR_MALLOC);
