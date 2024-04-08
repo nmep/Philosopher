@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:21:10 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/06 01:01:05 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 17:10:18 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,21 @@ int	ft_sleep(t_philo *philo, int philo_n)
 	// dormir;
 	printf("%d %d is sleeping\n", ft_print_time(philo), philo_n);
 	// zzzzzzzzzzzzzzzzzzzzz
-	ft_usleep(philo, philo->ph_data.time_to_sleep);
+	ft_usleep(philo->ph_data.time_to_sleep);
 	// chef waki wake up
 	return (1);
 }
 
 int	ft_eat(t_philo *philo, int philo_n, sem_t *forks)
 {
-	// prendre les fourcchette;
+	// printf("philo %d a prit une fourchette\n", philo_n);
 	sem_wait(forks);
+	// printf("philo %d a prit une fourchette\n", philo_n);
 	sem_wait(forks);
 	// manger
 	printf("%d %d is eating\n", ft_print_time(philo), philo_n);
 	// attendre
-	ft_usleep(philo, philo->ph_data.time_to_eat);
+	ft_usleep(philo->ph_data.time_to_eat);
 	// lache ca on t'a dit gamin
 	sem_post(forks);
 	sem_post(forks);

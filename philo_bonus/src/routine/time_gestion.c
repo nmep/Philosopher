@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:30:27 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/06 01:00:05 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 17:07:58 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int	ft_print_time(t_philo *philo)
 	return (ft_get_time_milli() - philo->time.start);
 }
 
-int	ft_usleep(t_philo *philo, int time_to_wait)
+int	ft_usleep(int time_to_wait)
 {
 	long	time_atm;
 
-	(void)philo;
 	time_atm = ft_get_time_milli();
 	while (ft_get_time_milli() - time_atm <= time_to_wait)
 	{

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/06 01:06:04 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/08 17:21:23 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define ERR_PARSING 2
 # define ERROR_MALLOC 3
-# define ERROR_FORK 4
+# define ERROR_FORK -1
 
 typedef struct s_philo_data
 {
@@ -46,7 +46,7 @@ typedef struct s_pihlo
 {
 	pthread_t		*ph;
 	t_philo_data	ph_data;
-	sem_t			fork;
+	sem_t			*fork;
 	t_time			time;
 }	t_philo;
 
@@ -73,7 +73,7 @@ int		ft_parsing_data(t_philo *philo, char **av, int ac);
 // # ---------------------------------------------	#
 
 // ft_init_philo
-int		ft_init_philo(t_philo *philo, int philo_n, int *pid_tab, sem_t *forks);
+int		ft_init_philo(t_philo *philo, int philo_n, int *pid_tab, int *status);
 
 // ft_init_routine.c
 int		ft_init_routine(t_philo *philo);
@@ -99,7 +99,7 @@ int		ft_eat(t_philo *philo, int philo_n, sem_t *forks);
 // ft_time_gestion.c
 long	ft_get_time_milli();
 int		ft_print_time(t_philo *philo);
-int		ft_usleep(t_philo *philo, int time_to_wait);
+int		ft_usleep(int time_to_wait);
 
 
 // # ---------------------------------------------	#
