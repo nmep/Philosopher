@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:39:08 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/05 19:44:45 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 09:44:21 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int ac, char **av)
 	else if (check == ERR_PARSING)
 		return (ft_print_err_parsing(), ERR_PARSING);
 	gettimeofday(&tv, NULL);
-	philo.time.start = (tv.tv_sec * 1000) + tv.tv_usec * 0.001;
+	philo.time.start = (tv.tv_sec * 1000) + (tv.tv_usec * 0.001);
 	check = ft_init_routine(&philo);
 	if (check == ERROR_MALLOC)
 		return (write(2, "ERROR MALLOC\n", 13), ERROR_MALLOC);

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:34:42 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/08 17:44:54 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 12:10:01 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ int	ft_init_philo(t_philo *philo, int philo_n, int *pid_tab, int *status)
 		return (ERROR_FORK);
 	if (pid == 0)
 	{
-		printf("dans enfant philo %d\n", philo_n);
 		*status = ft_loop_eat(philo, philo_n, &last_meal);
-		printf("apres exit\n");
 	}
 	else
 	{
-		printf("parent\n");
 		*pid_tab = pid;
 	}
 	return (1);
@@ -47,8 +44,6 @@ int	ft_init_routine(t_philo *philo)
 	i = 0;
 	while (i < philo->ph_data.p_number)
 	{
-		if ((i + 1) % 2 != 0)
-			ft_usleep(philo->ph_data.time_to_eat);
 		ft_init_philo(philo, i + 1, &pid_tab[i], &status);
 		if (status == ERROR_FORK)
 			return (ERROR_FORK);
@@ -59,9 +54,19 @@ int	ft_init_routine(t_philo *philo)
 	{
 		waitpid(pid_tab[i], &status, 0);
 		status = WEXITSTATUS(status);
-		// print ici que x philo est mort
-		// pour bien le gerer faire en sorte que l'enfant return 
-		// l'id du philo qui est mort
+
+		if (status >= 1 && status <= philo->ph_data.p_number)
+		{
+			printf("%d %d died\n", ft_print_time(philo, NULL), status);
+			i = 0;
+			while (i < philo->ph_data.p_number)
+			{
+				kill(pid_tab[i], SIGKILL);
+				i++;
+			}
+			break ;
+			
+		}
 		i++;
 	}
 	sem_unlink("/fork");

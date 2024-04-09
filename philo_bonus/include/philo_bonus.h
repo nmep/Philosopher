@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/08 18:06:36 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 09:41:19 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <limits.h>
 # include <stdbool.h>
 # include <stdio.h>
@@ -95,14 +96,14 @@ int		ft_routine(t_philo *philo, int philo_n, int *last_meal);
 
 // ft_philo_actions.c
 int		ft_think(t_philo *philo, int philo_n);
-int		ft_sleep(t_philo *philo, int philo_n);
+int		ft_sleep(t_philo *philo, int philo_n, int *last_meal);
 int		ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal);
 bool	ft_check_death(t_philo *philo, int *last_meal);
 
 // ft_time_gestion.c
 long	ft_get_time_milli();
 int		ft_print_time(t_philo *philo, int *last_meal);
-int		ft_usleep(int time_to_wait);
+int		ft_usleep(int time_to_wait, int *last_meal, t_philo *philo);
 
 
 // # ---------------------------------------------	#
