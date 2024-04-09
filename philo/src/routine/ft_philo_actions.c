@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_philo_actions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:44:02 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/08 23:41:57 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/09 15:53:49 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,11 @@ inline int	ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose)
 		pthread_mutex_unlock(&philo->mutex.death);
 		return (0);
 	}
+	// time_stamp = ft_print_time(philo, NULL) - current_fork_pose->last_meal;
 	time_stamp = ft_print_time(philo, NULL) - current_fork_pose->last_meal;
 	// printf("ts %ld\n",time_stamp);
 	// printf("death %ld\n", ti/me_stamp - current_fork_pose->last_meal - philo->ph_data.time_to_die);
-	if (time_stamp - current_fork_pose->last_meal >= philo->ph_data.time_to_die)
+	if (time_stamp >= philo->ph_data.time_to_die)
 	{
 		philo->dead = 1;
 		pthread_mutex_lock(&philo->mutex.print);

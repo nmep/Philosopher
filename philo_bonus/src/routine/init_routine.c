@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:34:42 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 12:10:01 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 14:27:11 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	ft_init_routine(t_philo *philo)
 
 	status = 0;
 	pid_tab = malloc(sizeof(int) * philo->ph_data.p_number);
-	philo->fork = sem_open("/fork", O_CREAT, 0644, philo->ph_data.p_number);
+	sem_unlink("/otto");
+	philo->fork = sem_open("/otto", O_CREAT, 0644, philo->ph_data.p_number);
 	i = 0;
 	while (i < philo->ph_data.p_number)
 	{
@@ -69,6 +70,6 @@ int	ft_init_routine(t_philo *philo)
 		}
 		i++;
 	}
-	sem_unlink("/fork");
+	sem_unlink("/otto");
 	return (1);
 }
