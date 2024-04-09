@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:39:08 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 09:44:21 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 17:04:52 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_print_err_parsing(void)
 
 int	main(int ac, char **av)
 {
-	int	check;
+	int				check;
 	struct timeval	tv;
-	t_philo	philo;
+	t_philo			philo;
 
 	if (ac != 5 && ac != 6)
 		return (ft_print_err_msg(), ERR_PARSING);

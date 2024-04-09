@@ -6,15 +6,15 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:30:27 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 15:52:33 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 17:06:20 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-long	ft_get_time_milli()
+long	ft_get_time_milli(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec * 0.001));
@@ -25,7 +25,6 @@ int	ft_print_time(t_philo *philo, int *last_meal)
 	int	timestamp;
 
 	timestamp = ft_get_time_milli() - philo->time.start;
-	// printf("timestamp %d\n", timestamp);
 	if (last_meal)
 		*last_meal = timestamp;
 	return (timestamp);

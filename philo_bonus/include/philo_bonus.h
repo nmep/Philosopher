@@ -6,11 +6,11 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 09:41:19 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 17:04:33 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHILO_BONUS_H
+#ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
 # include <pthread.h>
@@ -41,7 +41,7 @@ typedef struct s_philo_data
 
 typedef struct s_time
 {
-	long start;
+	long	start;
 }	t_time;
 
 typedef struct s_pihlo
@@ -101,10 +101,9 @@ int		ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal);
 bool	ft_check_death(t_philo *philo, int *last_meal);
 
 // ft_time_gestion.c
-long	ft_get_time_milli();
+long	ft_get_time_milli(void);
 int		ft_print_time(t_philo *philo, int *last_meal);
 int		ft_usleep(int time_to_wait, int *last_meal, t_philo *philo);
-
 
 // # ---------------------------------------------	#
 // #												#

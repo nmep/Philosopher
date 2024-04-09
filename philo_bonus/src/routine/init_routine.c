@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:34:42 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 14:27:11 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 17:05:13 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_init_routine(t_philo *philo)
 	{
 		waitpid(pid_tab[i], &status, 0);
 		status = WEXITSTATUS(status);
-
 		if (status >= 1 && status <= philo->ph_data.p_number)
 		{
 			printf("%d %d died\n", ft_print_time(philo, NULL), status);
@@ -66,7 +65,6 @@ int	ft_init_routine(t_philo *philo)
 				i++;
 			}
 			break ;
-			
 		}
 		i++;
 	}
