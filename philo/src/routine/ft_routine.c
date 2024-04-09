@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_routine.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 10:45:49 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 17:24:50 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/09 22:17:30 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ inline int	ft_routine(t_philo *philo, t_fork_lr *current_fork_pose)
 	if (!ft_think(philo, current_fork_pose->l_fork->fork_n, current_fork_pose))
 		return (0);
 	if (philo->ph_data.p_number == 1)
-		ft_one_philo_eat(philo, current_fork_pose);
-	if (philo->ph_data.p_number % 2 == 0)
+		ft_one_philo_eat(philo, current_fork_pose);	
+	else if (philo->ph_data.p_number % 2 == 0)
 	{
 		if ((current_fork_pose->l_fork->fork_n) % 2 == 0)
 		{
