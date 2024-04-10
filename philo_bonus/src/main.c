@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:39:08 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 17:04:52 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/10 21:49:59 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,4 @@ int	main(int ac, char **av)
 		return (write(2, "ERROR MALLOC\n", 13), ERROR_MALLOC);
 	return (0);
 }
+

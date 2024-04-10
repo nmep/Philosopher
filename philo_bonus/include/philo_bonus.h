@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 16:11:16 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/10 21:12:04 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_pihlo
 	sem_t			*fork;
 	t_time			time;
 	bool			dead;
+	int				last_meal;
+	bool			eat_finish;
 }	t_philo;
 
 // # ---------------------------------------------	#

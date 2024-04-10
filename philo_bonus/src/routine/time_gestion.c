@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:30:27 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 18:22:50 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/10 21:09:19 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_usleep(int time_to_wait, int *last_meal, t_philo *philo)
 	long	time_atm;
 
 	time_atm = ft_get_time_milli();
-	(void)philo;
 	if (!last_meal)
 	{
 		while (ft_get_time_milli() - time_atm <= time_to_wait)
@@ -45,7 +44,7 @@ int	ft_usleep(int time_to_wait, int *last_meal, t_philo *philo)
 	else
 	{
 		while (ft_get_time_milli() - time_atm <= time_to_wait
-			&& ft_check_death(philo, last_meal))
+			&& philo->dead == 0)
 			usleep(1);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 23:10:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 19:33:35 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/10 21:02:58 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,11 @@ void	ft_clean_routine_data(t_philo *philo, t_fork_lr *save_fork_pose, int *i)
 	free(save_fork_pose);
 }
 
-void	*ft_check_death(t_philo *arg_philo, t_fork_lr *save_fork_pose)
+void	*ft_check_death(t_philo *philo, t_fork_lr *save_fork_pose)
 {
-	t_philo	*philo;
 	int		i;
 	long	timestamp;
 
-	philo = arg_philo;
 	while (1)
 	{
 		pthread_mutex_lock(&philo->mutex.eat_finish);
