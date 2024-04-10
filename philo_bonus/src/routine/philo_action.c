@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:21:10 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 22:32:27 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/10 18:22:48 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal)
 	if (!ft_check_death(philo, last_meal))
 	{
 		sem_post(forks);
+		sem_close(philo->fork);
 		exit(philo_n);
 	}
 	sem_wait(forks);
@@ -37,9 +38,10 @@ int	ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal)
 	if (!ft_check_death(philo, last_meal))
 	{
 		sem_post(forks);
+		sem_close(philo->fork);
 		exit(philo_n);
 	}
-	if (philo->ph_data.p_number)
+	if (philo->ph_data.p_number == 1)
 	{
 		sem_post(forks);
 		return (1);
@@ -50,6 +52,7 @@ int	ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal)
 	{
 		sem_post(forks);
 		sem_post(forks);
+		sem_close(philo->fork);
 		exit(philo_n);
 	}
 	printf("%d %d is eating\n", ft_print_time(philo, last_meal), philo_n);
@@ -66,7 +69,7 @@ bool	ft_check_death(t_philo *philo, int *last_meal)
 	if (!last_meal)
 		return (true);
 	timestamp = ft_print_time(philo, NULL) - *last_meal;
-	if (timestamp + 1 >= philo->ph_data.time_to_die)
+	if (timestamp >= philo->ph_data.time_to_die)
 		return (false);
 	return (true);
 }

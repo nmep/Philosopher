@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop_eat.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 08:11:48 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 21:52:53 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/10 19:30:48 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,39 @@ void	ft_loop_n_time(t_philo *philo, t_fork_lr *current_fork_pose)
 	i = -1;
 	while (++i < philo->ph_data.number_of_time_p_eat)
 	{
-		pthread_mutex_lock(&philo->mutex.print);
-		if (philo->dead == 1)
-		{
-			pthread_mutex_unlock(&philo->mutex.print);
+		if (!ft_check_death_philo(philo))
 			break ;
-		}
-		pthread_mutex_unlock(&philo->mutex.print);
 		if (!ft_routine(philo, current_fork_pose))
 			break ;
 	}
+	pthread_mutex_lock(&philo->mutex.eat_finish);
+	philo->finish = 1;
+	pthread_mutex_unlock(&philo->mutex.eat_finish);
 }
 
 void	ft_infinite_loop(t_philo *philo, t_fork_lr *current_fork_pose)
 {
 	while (true)
 	{
-		pthread_mutex_lock(&philo->mutex.print);
+		pthread_mutex_lock(&philo->mutex.death);
 		if (philo->dead == 1)
 		{
-			pthread_mutex_unlock(&philo->mutex.print);
+			pthread_mutex_unlock(&philo->mutex.death);
+			{
+				pthread_mutex_lock(&philo->mutex.eat_finish);
+				philo->finish = 1;
+				pthread_mutex_unlock(&philo->mutex.eat_finish);
+				break ;
+			}
+		}
+		pthread_mutex_unlock(&philo->mutex.death);
+		if (!ft_routine(philo, current_fork_pose))
+		{
+			pthread_mutex_lock(&philo->mutex.eat_finish);
+			philo->finish = 1;
+			pthread_mutex_unlock(&philo->mutex.eat_finish);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->mutex.print);
-		if (!ft_routine(philo, current_fork_pose))
-			break ;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/04 15:04:18 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/10 19:23:08 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_mutex
 	pthread_mutex_t	f_pos_addr_incr;
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
+	pthread_mutex_t	last_meal;
+	pthread_mutex_t	eat_finish;
 }	t_mutex;
 
 typedef struct s_philo_data
@@ -80,6 +82,7 @@ typedef struct s_pihlo
 	t_mutex			mutex;
 	t_time			time;
 	int				dead;
+	int				finish;
 }	t_philo;
 
 // # ---------------------------------------------	#
@@ -131,18 +134,24 @@ void	*ft_loop_eat_n_time(void *arg_philo);
 int		ft_routine(t_philo *philo, t_fork_lr *current_fork_pose);
 void	ft_one_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
 int		ft_last_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
+int		ft_n_philo_is_pair(t_philo *philo, t_fork_lr *current_fork_pose);
+int		ft_n_philo_is_odd(t_philo *philo, t_fork_lr *current_fork_pose);
 
 // ft_philo_actions.c
-int		ft_think(t_philo *philo, int philo_n, t_fork_lr *current_fork_pose);
+int		ft_think(t_philo *philo, int philo_n);
 int		ft_sleep(int philo_n, t_philo *philo);
 int		ft_eat(t_philo *philo, pthread_mutex_t *first_lock,
 			pthread_mutex_t *second_lock, t_fork_lr *current_pose);
-int		ft_is_dead(t_philo *philo, t_fork_lr *current_fork_pose);
+// int		ft_is_dead(t_philo *philo);
 
 // ft_time_gestion.c
 long	ft_print_time(t_philo *philo, int *last_meal);
 long	ft_timestamp(void);
 void	ft_usleep(int elapsed, t_philo *philo);
+
+// death
+void	*ft_check_death(t_philo *philo, t_fork_lr *save_fork_pose);
+int		ft_check_death_philo(t_philo *philo);
 
 // # ---------------------------------------------	#
 // #												#

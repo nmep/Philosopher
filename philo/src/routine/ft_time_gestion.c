@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_time_gestion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 08:07:01 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/08 22:35:09 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/10 19:18:29 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ long	ft_print_time(t_philo *philo, int *last_meal)
 
 	gettimeofday(&t, NULL);
 	res = (t.tv_sec * 1000 + t.tv_usec * 0.001) - philo->time.time_start;
+	pthread_mutex_lock(&philo->mutex.last_meal);
 	if (last_meal)
 		*last_meal = (int) res;
+	pthread_mutex_unlock(&philo->mutex.last_meal);
 	return (res);
 }
 
@@ -39,18 +41,10 @@ void	ft_usleep(int elapsed, t_philo *philo)
 	time = ft_timestamp();
 	while (1)
 	{
-		pthread_mutex_lock(&philo->mutex.death);
-		if (philo->dead == 1)
-		{
-			pthread_mutex_unlock(&philo->mutex.death);
+		if (!ft_check_death_philo(philo))
 			break ;
-		}
 		if (ft_timestamp() - time >= elapsed)
-		{
-			pthread_mutex_unlock(&philo->mutex.death);
 			break ;
-		}
-		pthread_mutex_unlock(&philo->mutex.death);
 		usleep(1);
 	}
 }

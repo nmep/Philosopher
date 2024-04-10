@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/09 17:04:33 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/10 16:11:16 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ERR_PARSING 2
 # define ERROR_MALLOC 3
 # define ERROR_FORK -1
+# define ERROR_SEM 4
 # define PHILO_DEATH 10
 
 typedef struct s_philo_data
@@ -89,7 +90,7 @@ int		ft_init_routine(t_philo *philo);
 // # ---------------------------------------------	#
 
 // ft_loop_eat.c
-int		ft_loop_eat(t_philo *philo, int philo_n, int *last_meal);
+int		ft_loop_eat(t_philo *philo, int philo_n, int *last_meal, int *pid_tab);
 
 // ft_routine.c
 int		ft_routine(t_philo *philo, int philo_n, int *last_meal);
