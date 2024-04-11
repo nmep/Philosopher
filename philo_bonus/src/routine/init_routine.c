@@ -6,7 +6,7 @@
 /*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:34:42 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/11 15:58:05 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/11 16:06:34 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_wait(t_philo *philo, int *pid_tab, int *status)
 	i = 0;
 	while (i < philo->ph_data.p_number)
 	{
-		waitpid(pid_tab[i], status, 0);
+		waitpid(0, status, 0);
 		*status = WEXITSTATUS(*status);
 		if (*status >= 1 && *status <= philo->ph_data.p_number)
 		{
