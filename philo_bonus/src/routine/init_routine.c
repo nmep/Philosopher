@@ -6,7 +6,7 @@
 /*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 19:34:42 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/11 15:14:29 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/11 15:58:05 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_init_philo(t_philo *philo, int philo_n, int *pid_tab, int *status)
 	pthread_t	monitor;
 
 	philo->last_meal = 0;
+	philo->id = philo_n;
 	pid = fork();
 	if (pid == -1)
 	{
@@ -26,7 +27,7 @@ int	ft_init_philo(t_philo *philo, int philo_n, int *pid_tab, int *status)
 	}
 	if (pid == 0)
 	{
-		pthread_create(&monitor, NULL, ft_check_death, philo);
+		pthread_create(&monitor, NULL, (void *) ft_check_death, philo);
 		*status = ft_loop_eat(philo, philo_n, &philo->last_meal, pid_tab);
 		pthread_join(monitor, NULL);
 	}
@@ -48,12 +49,11 @@ void	ft_wait(t_philo *philo, int *pid_tab, int *status)
 		*status = WEXITSTATUS(*status);
 		if (*status >= 1 && *status <= philo->ph_data.p_number)
 		{
-			i = 0;
-			printf("%d %d died\n", ft_print_time(philo, NULL), *status);
-			while (i < philo->ph_data.p_number)
+			i = -1;
+			printf("time %d philo recue comme mort %d\n", ft_print_time(philo, NULL), *status);
+			while (++i < philo->ph_data.p_number)
 			{
 				kill(pid_tab[i], SIGKILL);
-				i++;
 			}
 			break ;
 		}
@@ -61,7 +61,7 @@ void	ft_wait(t_philo *philo, int *pid_tab, int *status)
 	}
 }
 
-void	*ft_check_death(void *arg_philo)
+int	ft_check_death(void *arg_philo)
 {
 	t_philo	*philo;
 	long	timestamp;
@@ -74,12 +74,12 @@ void	*ft_check_death(void *arg_philo)
 			continue ;
 		if (timestamp - philo->last_meal >= philo->ph_data.time_to_die)
 		{
-			// printf("t %d | lm %d | ts %ld | ttd %d\n", ft_print_time(philo, NULL), philo->last_meal, timestamp, philo->ph_data.time_to_die);
 			philo->dead = 1;
-			break ;
+			printf("%ld %d died\n", timestamp, philo->id);
+			exit (philo->id);
 		}
 	}
-	return (NULL);
+	return (0);
 }
 
 int	ft_init_routine(t_philo *philo)

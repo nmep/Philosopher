@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_gestion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:30:27 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 21:09:19 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/11 15:42:18 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,15 @@ int	ft_print_time(t_philo *philo, int *last_meal)
 	return (timestamp);
 }
 
-int	ft_usleep(int time_to_wait, int *last_meal, t_philo *philo)
+int	ft_usleep(int time_to_wait, t_philo *philo)
 {
 	long	time_atm;
 
 	time_atm = ft_get_time_milli();
-	if (!last_meal)
-	{
-		while (ft_get_time_milli() - time_atm <= time_to_wait)
-			usleep(1);
-	}
-	else
-	{
-		while (ft_get_time_milli() - time_atm <= time_to_wait
+	while (ft_get_time_milli() - time_atm <= time_to_wait 
 			&& philo->dead == 0)
-			usleep(1);
-	}
+		usleep(1);
+	if (philo->dead == 1)
+		exit(philo->id);
 	return (1);
 }

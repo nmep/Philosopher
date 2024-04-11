@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/11 02:52:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/11 15:38:09 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_pihlo
 	bool			dead;
 	int				last_meal;
 	bool			eat_finish;
+	int				id;
 }	t_philo;
 
 // # ---------------------------------------------	#
@@ -99,18 +100,18 @@ int		ft_routine(t_philo *philo, int philo_n, int *last_meal);
 
 // ft_philo_actions.c
 int		ft_think(t_philo *philo, int philo_n);
-int		ft_sleep(t_philo *philo, int philo_n, int *last_meal);
+int		ft_sleep(t_philo *philo, int philo_n);
 int		ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal);
 // bool	ft_check_death(t_philo *philo, int *last_meal);
 
 // ft_time_gestion.c
 long	ft_get_time_milli(void);
 int		ft_print_time(t_philo *philo, int *last_meal);
-int		ft_usleep(int time_to_wait, int *last_meal, t_philo *philo);
+int		ft_usleep(int time_to_wait, t_philo *philo);
 
 
 // death
-void	*ft_check_death(void *arg_philo);
+int		ft_check_death(void *arg_philo);
 
 // # ---------------------------------------------	#
 // #												#
