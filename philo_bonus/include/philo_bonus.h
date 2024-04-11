@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 21:12:04 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/11 02:52:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,16 @@ int		ft_routine(t_philo *philo, int philo_n, int *last_meal);
 int		ft_think(t_philo *philo, int philo_n);
 int		ft_sleep(t_philo *philo, int philo_n, int *last_meal);
 int		ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal);
-bool	ft_check_death(t_philo *philo, int *last_meal);
+// bool	ft_check_death(t_philo *philo, int *last_meal);
 
 // ft_time_gestion.c
 long	ft_get_time_milli(void);
 int		ft_print_time(t_philo *philo, int *last_meal);
 int		ft_usleep(int time_to_wait, int *last_meal, t_philo *philo);
+
+
+// death
+void	*ft_check_death(void *arg_philo);
 
 // # ---------------------------------------------	#
 // #												#

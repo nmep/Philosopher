@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:21:10 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 22:10:17 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/11 15:13:29 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,6 @@ inline int	ft_sleep(t_philo *philo, int philo_n, int *last_meal)
 
 int	ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal)
 {
-	if (philo->dead == 1)
-	{
-		sem_post(forks);
-		sem_close(philo->fork);
-		exit(philo_n);
-	}
 	sem_wait(forks);
 	printf("%d %d has taken a fork\n", ft_print_time(philo, NULL), philo_n);
 	if (philo->dead == 1)
