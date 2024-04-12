@@ -6,7 +6,7 @@
 /*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/10 19:23:08 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/12 04:43:56 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,13 @@ void	ft_one_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
 int		ft_last_philo_eat(t_philo *philo, t_fork_lr *current_fork_pose);
 int		ft_n_philo_is_pair(t_philo *philo, t_fork_lr *current_fork_pose);
 int		ft_n_philo_is_odd(t_philo *philo, t_fork_lr *current_fork_pose);
+void	ft_clean_thread(t_philo *philo, int i);
 
 // ft_philo_actions.c
 int		ft_think(t_philo *philo, int philo_n);
 int		ft_sleep(int philo_n, t_philo *philo);
 int		ft_eat(t_philo *philo, pthread_mutex_t *first_lock,
 			pthread_mutex_t *second_lock, t_fork_lr *current_pose);
-// int		ft_is_dead(t_philo *philo);
 
 // ft_time_gestion.c
 long	ft_print_time(t_philo *philo, int *last_meal);
