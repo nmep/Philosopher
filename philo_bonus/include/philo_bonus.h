@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 21:44:12 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/11 15:38:09 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/12 03:33:06 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_pihlo
 	pthread_t		*ph;
 	t_philo_data	ph_data;
 	sem_t			*fork;
+	sem_t			*prioritie;
+	sem_t			*die;
 	t_time			time;
 	bool			dead;
 	int				last_meal;
@@ -93,7 +95,7 @@ int		ft_init_routine(t_philo *philo);
 // # ---------------------------------------------	#
 
 // ft_loop_eat.c
-int		ft_loop_eat(t_philo *philo, int philo_n, int *last_meal, int *pid_tab);
+int		ft_loop_eat(t_philo *philo, int philo_n, int *last_meal);
 
 // ft_routine.c
 int		ft_routine(t_philo *philo, int philo_n, int *last_meal);
@@ -102,16 +104,27 @@ int		ft_routine(t_philo *philo, int philo_n, int *last_meal);
 int		ft_think(t_philo *philo, int philo_n);
 int		ft_sleep(t_philo *philo, int philo_n);
 int		ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal);
-// bool	ft_check_death(t_philo *philo, int *last_meal);
 
 // ft_time_gestion.c
 long	ft_get_time_milli(void);
 int		ft_print_time(t_philo *philo, int *last_meal);
 int		ft_usleep(int time_to_wait, t_philo *philo);
 
-
 // death
 int		ft_check_death(void *arg_philo);
+
+// # ---------------------------------------------	#
+// #												#
+// #												#
+// #					SEMPAHORE					#
+// #												#
+// #												#
+// # ---------------------------------------------	#
+
+int		ft_sem_open(t_philo *philo);
+void	ft_sem_unlink(void);
+void	ft_sem_close(t_philo *philo);
+void	ft_clear_sem(t_philo *philo);
 
 // # ---------------------------------------------	#
 // #												#

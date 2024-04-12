@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_gestion.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:30:27 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/11 15:42:18 by garfi            ###   ########.fr       */
+/*   Updated: 2024/04/12 01:59:37 by lgarfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ int	ft_usleep(int time_to_wait, t_philo *philo)
 	long	time_atm;
 
 	time_atm = ft_get_time_milli();
-	while (ft_get_time_milli() - time_atm <= time_to_wait 
-			&& philo->dead == 0)
+	while (ft_get_time_milli() - time_atm <= time_to_wait
+		&& philo->dead == 0)
 		usleep(1);
 	if (philo->dead == 1)
+	{
+		ft_clear_sem(philo);
 		exit(philo->id);
+	}
 	return (1);
 }
