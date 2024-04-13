@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop_n_time.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:06:34 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/12 02:58:52 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/13 17:51:43 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ int	ft_loop_n_time(t_philo *philo, int philo_n, int *last_meal)
 
 int	ft_loop_eat(t_philo *philo, int philo_n, int *last_meal)
 {
-	int	i;
-
-	i = -1;
 	if (philo->ph_data.p_number % 2 == 0)
 	{
 		if (philo_n % 2 == 0)

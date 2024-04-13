@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_action.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 22:21:10 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/12 03:18:28 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/13 13:01:40 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	ft_eat(t_philo *philo, int philo_n, sem_t *forks, int *last_meal)
 	if (philo->ph_data.p_number == 1)
 	{
 		sem_post(forks);
+		sem_post(philo->prioritie);
 		return (1);
 	}
 	sem_wait(forks);
