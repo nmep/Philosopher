@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_death.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgarfi <lgarfi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: garfi <garfi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 04:40:59 by lgarfi            #+#    #+#             */
-/*   Updated: 2024/04/12 04:41:22 by lgarfi           ###   ########.fr       */
+/*   Updated: 2024/04/13 13:00:37 by garfi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_check_death_2(t_philo *philo, long *timestamp, \
 		}
 		*timestamp -= save_fork_pose[(*i)].last_meal;
 		pthread_mutex_unlock(&philo->mutex.last_meal);
-		if (*timestamp >= philo->ph_data.time_to_die)
+		if (*timestamp > philo->ph_data.time_to_die)
 		{
 			pthread_mutex_lock(&philo->mutex.death);
 			philo->dead = 1;
